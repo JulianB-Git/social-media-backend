@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class PostDTO {
 
     private long id;
+    private String uuid;
     private String description;
     private String imageUrl;
     private LocalDateTime createdAt;
@@ -16,6 +17,14 @@ public class PostDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getDescription() {

@@ -1,7 +1,6 @@
 package com.social.appbackend.model;
 
 import com.sun.istack.NotNull;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +11,7 @@ public class Post {
     @Id
     @GeneratedValue
     private Long id;
+    private String uuid;
     private String description;
     private String imageUrl;
 
@@ -23,8 +23,9 @@ public class Post {
     @Column(name = "createdAt", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
-    public Post(Long id, String description, String imageUrl, User user, LocalDateTime createdAt) {
+    public Post(Long id, String uuid, String description, String imageUrl, User user, LocalDateTime createdAt) {
         this.id = id;
+        this.uuid = uuid;
         this.description = description;
         this.imageUrl = imageUrl;
         this.user = user;
@@ -40,6 +41,14 @@ public class Post {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getDescription() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/post")
@@ -55,6 +56,10 @@ public class PostController {
     private Post convertPostDTOToPost(PostDTO postDTO){
         Post post = new Post();
         BeanUtils.copyProperties(postDTO, post, "user");
+
+        if (postDTO.getUuid().isEmpty()){
+            post.setUuid(UUID.randomUUID().toString());
+        }
 
         post.setCreatedAt(LocalDateTime.now());
 
