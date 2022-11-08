@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface FriendRelationshipRepository extends JpaRepository<FriendRelationship, Long> {
 
-    List<FriendRelationship> findAllByFollowerUserId(long userId);
-
+    List<FriendRelationship> findAllByFollowedUserId(long userId);
+    FriendRelationship findByFollowerUserIdEqualsAndFollowedUserIdEquals(long followerUserId, long followedUserId);
 }

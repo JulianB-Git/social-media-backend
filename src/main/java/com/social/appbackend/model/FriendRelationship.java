@@ -11,12 +11,12 @@ public class FriendRelationship {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "followerUser", referencedColumnName = "id")
     @NotNull
     private User followerUser;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "followedUser", referencedColumnName = "id")
     @NotNull
     private User followedUser;

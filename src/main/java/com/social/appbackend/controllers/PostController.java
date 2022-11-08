@@ -36,11 +36,28 @@ public class PostController {
         return ResponseEntity.ok().body(convertPostsToPostsDTO(postService.getPosts(userDetails.getUsername())));
     }
 
+    @GetMapping
+    public ResponseEntity<?> getPostsForUser(@RequestParam long userId){
+        return ResponseEntity.ok().body(convertPostsToPostsDTO(postService.getPostsForUser(userId)));
+    }
+
     @PostMapping("/")
     public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO){
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post savedPost = postService.addPost(convertPostDTOToPost(postDTO), userDetails.getUsername());
         return ResponseEntity.status(201).body(convertPostToPostDTO(savedPost));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> deletePost(@PathVariable long postId){
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        try {
+            postService.deletePost(postId, userDetails.getId());
+            return ResponseEntity.ok().body("Post deleted");
+        } catch (Exception e){
+            return ResponseEntity.ok().body(new ApiError("You can only delete your own posts", null));
+        }
     }
 
     private List<PostDTO> convertPostsToPostsDTO(List<Post> posts){
