@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM maven:3.6.0-jdk-11-slim AS build
+FROM maven:3.8.6-eclipse-temurin-19-alpine AS build
 COPY src /app-backend/src
 COPY pom.xml /app-backend
 RUN mvn -f /app-backend/pom.xml clean package
