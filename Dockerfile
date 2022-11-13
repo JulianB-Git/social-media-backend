@@ -1,18 +1,15 @@
-FROM openjdk:19-jdk-alpine
+#
+# Build stage
+#
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /app-backend/src
+COPY pom.xml /app-backend
+RUN mvn -f /app-backend/pom.xml clean package
+
+#
+# Package stage
+#
+FROM openjdk:19-jre-slim
+COPY --from=build /app-backend/target/app-backend-0.0.1-SNAPSHOT.jar /usr/local/lib/backend.jar
 EXPOSE 8080
-WORKDIR .
-
-RUN apt-get update
-RUN apt-get install -y maven
-
-ADD pom.xml /pom.xml
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
-
-# Adding source, compile and package into a fat jar
-ADD src ./src
-RUN ["mvn", "package"]
-
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=container","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/falcon.jar"]
