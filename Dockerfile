@@ -12,4 +12,4 @@ RUN mvn -f /app-backend/pom.xml clean package
 FROM openjdk:19-jdk-alpine
 COPY --from=build /app-backend/target/app-backend-0.0.1-SNAPSHOT.jar /usr/local/lib/backend.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/local/lib/falcon.jar"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/backend.jar"]
