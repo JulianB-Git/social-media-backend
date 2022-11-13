@@ -1,4 +1,4 @@
-FROM java:19
+FROM openjdk:19-jdk-alpine
 EXPOSE 8080
 WORKDIR .
 
