@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowCredentials(true);
-            config.addAllowedOrigin("http://localhost:3000");
+            config.addAllowedOrigin("https://julianb-git.github.io");
             config.addAllowedHeader("*");
             config.addAllowedMethod("POST");
             config.addAllowedMethod("GET");
